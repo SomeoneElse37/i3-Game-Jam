@@ -58,4 +58,4 @@ public class UIHandler : MonoBehaviour
             rb.angularVelocity = 0;
         }
     }
-}
+} 

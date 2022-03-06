@@ -9,6 +9,8 @@ public class UIHandler : MonoBehaviour
 {
     public TextMeshProUGUI playButtonText;
     public Transform physicsObjectsParent;
+    public TextMeshProUGUI speechBubble;
+
     protected Dictionary<Transform, (Vector3, Quaternion)> savedTransforms;
 
     // Start is called before the first frame update
@@ -30,7 +32,8 @@ public class UIHandler : MonoBehaviour
         {
             saveTransforms();
             Time.timeScale = 1;
-            playButtonText.SetText("Reset");
+            playButtonText.text = "Reset";
+            speechBubble.text = "";
         }
         else
         {

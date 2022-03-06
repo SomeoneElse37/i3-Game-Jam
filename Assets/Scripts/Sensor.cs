@@ -10,6 +10,7 @@ public class Sensor : MonoBehaviour
     private float time = 0;
 
     public TextMeshProUGUI timerDisplay;
+    public TextMeshProUGUI speechBubble;
 
     public float Time { get => time; }
 
@@ -25,6 +26,7 @@ public class Sensor : MonoBehaviour
         if (time > 5 && UnityEngine.Time.timeScale > 0)
         {
             timerDisplay.text = "Success!";
+            speechBubble.text = "That's... impossible...";
         }
         else if (collider.IsTouchingLayers() && UnityEngine.Time.timeScale > 0)
         {

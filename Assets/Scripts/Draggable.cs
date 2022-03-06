@@ -33,13 +33,25 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IDragHandler, IEndD
         Vector3 deltaPos = newMousePos - lastMousePos;
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            transform.position += deltaPos;
+            HandleLeftDrag(deltaPos);
         }
         else if (eventData.button == PointerEventData.InputButton.Right)
         {
-            transform.Rotate(Vector3.forward, deltaPos.x * -37);
+            HandleRightDrag(deltaPos);
         }
         lastMousePos = newMousePos;
+    }
+
+    private void HandleLeftDrag(Vector3 deltaPos)
+    {
+        transform.position += deltaPos;
+    }
+
+    private void HandleRightDrag(Vector3 deltaPos)
+    {
+        Vector3 localCenter = GetComponent<Rigidbody2D>().centerOfMass;
+        Vector3 center = transform.position + transform.TransformDirection(localCenter);
+        transform.RotateAround(center, Vector3.forward, deltaPos.x * -37);
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -62,38 +74,4 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IDragHandler, IEndD
         rb.velocity = Vector2.zero;
         rb.angularVelocity = 0;
     }
-
-    //private void OnMouseDown()
-    //{
-
-    //}
-
-    //private void OnMouseDrag()
-    //{
-    //    Debug.Log("Clicked!");
-    //}
-
-    //private void OnMouseUp()
-    //{
-    //    Debug.Log("Released!");
-    //}
-
-
-    //private void OnMouseDown(MouseDownEvent evt)
-    //{
-    //    bool leftMouseButtonPressed = 0 != (evt.pressedButtons & (1 << (int)MouseButton.LeftMouse));
-    //    bool rightMouseButtonPressed = 0 != (evt.pressedButtons & (1 << (int)MouseButton.RightMouse));
-    //    bool middleMouseButtonPressed = 0 != (evt.pressedButtons & (1 << (int)MouseButton.MiddleMouse));
-
-    //    VisualElement targetElement = (VisualElement)evt.target;
-    //    Debug.Log($"Mouse Down event. Triggered by {(MouseButton)evt.button} over element '{targetElement.name}'");
-    //    Debug.Log($"Pressed buttons: Left button: {leftMouseButtonPressed} Right button: {rightMouseButtonPressed} Middle button: {middleMouseButtonPressed}");
-    //}
-
-
-    //public void OnPointerClick(PointerEventData eventData)
-    //{
-    //    if (eventData.button == PointerEventData.InputButton.Right)
-    //        Debug.Log("Right button pressed.");
-    //}
 }
